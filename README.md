@@ -9,10 +9,12 @@
 - [ ] Cấu hình trusted registry trong daemon.json tham khảo Local Repos
 - [ ] Hello world với Docker
 #### Các câu lệnh cơ bản
-- [ ] Docker tag: Tạo 1 image có tag mới từ image đã có
+- [x] Docker tag: Tạo 1 image có tag mới từ image đã có
+      
       Cú pháp: `docker image tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]`
-  
-- [ ] Docker run
+ ![Screenshot from 2022-12-27 08-09-53](https://user-images.githubusercontent.com/120613788/209635342-ab8b5dcf-2161-4fc0-81c2-93eedfc7db20.png)
+- [x] Docker run: 
+      
 - [ ] Docker build
 - [ ] Docker push
 - [ ] Docker pull
