@@ -2,7 +2,7 @@
 ### Docker container  
 
 #### Overview về docker container
-- [ ] Cài đặt docker (trên linux)
+- [x] Cài đặt docker (trên linux)
 - [ ] Cấu hình proxy
   - [ ] Cho docker daemon
   - [ ] Cho docker client
@@ -31,14 +31,25 @@ Với
     
     -i: cung cấp một "con đường" giúp cho các chương trình bên trong container nhận được những command đã viết
 - [x] Docker build: Tạo image từ Dockerfile
-
       Cú pháp: `docker build [OPTIONS] PATH | URL | -`
  
 Ví dụ: 
 ![image](https://user-images.githubusercontent.com/120613788/209645752-0a615496-0eb6-4a64-8d05-817865e224bf.png)
-- [ ] Docker push: Đưa một image hoặc một repo lên Registry
+- [x] Docker push: Đưa một image hoặc một repo lên Registry
+      Đăng nhập vào Docker Hub:
+      
+      Cú pháp: `docker login`
+![image](https://user-images.githubusercontent.com/120613788/210026315-00c3706c-4f69-4cea-8fc4-42e6caa01872.png)
 
       Cú pháp: `docker push [OPTIONS] NAME[:TAG]`
+      
+      Các lựa chọn:
+      
+            | Options |                |              Mô tả |
+            | ------------- | ------------- | ------------- |
+            | -a | --all-tags  | Push tất cả tagged images trong repository |
+            |    | --disable-content-trust | Bỏ qua việc xác minh image |
+            | -q | --quiet  | Ngăn chặn đầu ra dài dòng |
 - [ ] Docker pull
 #### Kiến thức thêm
 - [ ] Docker CE/Docker EE
