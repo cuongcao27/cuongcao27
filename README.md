@@ -7,7 +7,9 @@
   - [ ] Cho docker daemon
   - [ ] Cho docker client
 - [ ] Cấu hình trusted registry trong daemon.json tham khảo Local Repos
-- [ ] Hello world với Docker
+- [x] Hello world với Docker
+![image](https://user-images.githubusercontent.com/120613788/210290321-b32bbaed-f7e8-4118-8dba-6186113f4211.png)
+
 #### Các câu lệnh cơ bản
 - [x] **Docker tag**: Tạo 1 image có tag mới từ image đã có
       
@@ -17,7 +19,7 @@
  ![Screenshot from 2022-12-27 08-09-53](https://user-images.githubusercontent.com/120613788/209635342-ab8b5dcf-2161-4fc0-81c2-93eedfc7db20.png)
 - [x] **Docker run**: Khởi tạo 1 container dựa vào image có sẵn
 
-      Cú pháp: `docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+      Cú pháp: docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
 
  Ví dụ:
 
@@ -31,17 +33,19 @@ Với
     
     -i: cung cấp một "con đường" giúp cho các chương trình bên trong container nhận được những command đã viết
 - [x] **Docker build**: Tạo image từ Dockerfile
-      Cú pháp: `docker build [OPTIONS] PATH | URL | -`
+
+      Cú pháp: docker build [OPTIONS] PATH | URL | -
  
 Ví dụ: 
 ![image](https://user-images.githubusercontent.com/120613788/209645752-0a615496-0eb6-4a64-8d05-817865e224bf.png)
 - [x] **Docker push**: Đưa một image hoặc một repo lên Registry
+
       Đăng nhập vào Docker Hub:
       
-      Cú pháp: `docker login`
+      Cú pháp: docker login
 ![image](https://user-images.githubusercontent.com/120613788/210026315-00c3706c-4f69-4cea-8fc4-42e6caa01872.png)
 
-      Cú pháp: `docker push [OPTIONS] NAME[:TAG]`
+      Cú pháp: docker push [OPTIONS] NAME[:TAG]
       
 - Các lựa chọn:
             
@@ -52,7 +56,7 @@ Ví dụ:
 |     -q         | --quiet             |    Thu gọn log của lệnh  |
 - [x] **Docker pull**: Pull 1 image hoặc 1 Repo từ Registry
 
-Cú pháp : `docker pull [OPTIONS] NAME[:TAG|@DIGEST]
+Cú pháp : docker pull [OPTIONS] NAME[:TAG|@DIGEST]
 - Các lựa chọn:
             
 |       Options       |              | Mô tả     |
@@ -73,6 +77,7 @@ Ví dụ:
 
 - [x] **Docker Engine**
 ![image](https://user-images.githubusercontent.com/120613788/210030832-14903b70-67fa-488d-9855-6814ba133839.png)
+
 Docker Engine: Là một ứng dụng client-server
 
 Các thành phần chính của Docker Engine gồm có:
@@ -81,10 +86,11 @@ Các thành phần chính của Docker Engine gồm có:
 - **Client**: là thành phần đầu cuối cung cấp một tập hợp các câu lệnh sử dụng api để người dùng thao tác với Docker.
 - [x] **Docker Compose**
 
-Docker Compose là công cụ dùng để định nghĩa và run multi-container cho Docker application. Với compose bạn sử dụng file YAML để config các services cho application của bạn. Sau đó dùng command để create và run từ những config đó. Sử dụng cũng khá đơn giản chỉ với ba bước:
+Docker Compose là công cụ dùng để định nghĩa và run multi-container cho Docker application. Với compose bạn sử dụng file YAML để config các services cho application của bạn. Sau đó dùng command để create và run từ những config đó. Sử dụng chỉ với ba bước:
 - Khai báo môi trường của chương trình trong Dockerfile.
 - Khai báo các services cần thiết để chạy application trong file docker-compose.yml.
 - Run docker-compose up để start compose và chạy chương trình.
+
 Compose có những câu lệnh cho phép quản lý lifecycle của chương trình:
 - Start, Stop và Build lại service
 - Xem status của các service đang chạy
@@ -92,7 +98,8 @@ Compose có những câu lệnh cho phép quản lý lifecycle của chương tr
 Như vậy Docker compose giúp ta tự động tải các image, thiết lập cấu hình tốt hơn rất nhiều so với docker. Nó sẽ cần một file cấu hình docker-compose.yml để chạy theo các image và cấu hình trong đó.
 
 **Đặc điểm**
-Không giống như Dockerfile (build các image). Docker compose dùng để build và run các container. Các thao tác của docker-compose tương tự như lệnh: docker run.
+
+Không giống như Dockerfile (build các image). Docker compose dùng để build và run các container. Các thao tác của docker-compose tương tự như lệnh: `docker run`.
 
 Docker compose cho phép tạo nhiều service(container) giống nhau bằng lệnh:
 
@@ -124,10 +131,13 @@ Với automated test, việc tạo ra một môi trường cho việc sử dụn
 
 - [x] **Docker Registry**
 ![image](https://user-images.githubusercontent.com/120613788/210033358-ec87b778-7f5c-47da-8884-7c1b3f7243f3.png)
+
 Docker Registry là một dịch vụ máy chủ cho phép lưu trữ các docker image của cá nhân, công ty, team... hay nói cách khác Docker Registry là nơi chứa các image trong quá trình khởi động các container. Hình ảnh sẽ được push vào registry và client sẽ pull images từ registry. Bạn có thể sử dụng registry của riêng mình hoặc registry của các nhà cung cấp lớn như: AWS, Google Cloud, Microsoft, Azure.
 - [x] **Docker Daemon**
+
 Đây là nơi lắng nghe các yêu cầu đến từ Docker client với mục đích quản lý các đối tượng thông qua REST API như Image, Container, Network hay Volumes. Bên cạnh đó, các Docker Daemon cũng giao tiếp với nhau nhằm quản lý các Docker Services.
 - [x] **Docker network**: Host, Bridge, Overlay, ...
+
 Docker network sẽ đảm nhiệm nhiệm vụ kết nối mạng giữa các container với nhau, kết nối giữa container với bên ngoài, cũng như kết nối giữa các cụm (swarm) docker containers.
 
 Với container và service của Docker, bạn có thể kết nối chúng lại với nhau hoặc kết nối chúng với các mạng khác nằm ngoài docker.
@@ -170,14 +180,21 @@ Với container không cần networking hoặc cần disable đi tất cả mọ
 **Một vài cách sử dụng Docker Network**
 
 **Khởi tạo một Docker Network**
+
 `$docker network create [OPTIONS] NETWORK`
+
 `$docker network create -d bridge my-bridge-network`
 
 Trong đó options `-d` là driver, để tạo mạng overlay thì có thể dùng `-d overlay` .Ngoài ra còn một số options
+
 --gateway: Địa chỉ Ip của Gateway (IPv4 hay IPv6) cho mạng con
+
 --ip-range: Xác định một dải IPs sử  dụng trong mạng
+
 --internal: Hạn chế  access từ bên ngoài vào mạng
+
 --ipv6: Bật IPv6
+
 --subnet: Chọn mạng con
 
 Ví dụ: Khởi tạo mạng my-bridge-network1 với driver bridge có subnet 10.11.0.0/16, ip gateway là 10.11.0.1
@@ -204,6 +221,7 @@ Trường hợp chúng ta muốn app sử dụng luôn mạng của host mà kh�
 ![image](https://user-images.githubusercontent.com/120613788/210048787-f8606fa5-899d-49ca-ba57-d7c57e7363db.png)
 - Khai báo qua networks trong docker-compose.yml
 ![image](https://user-images.githubusercontent.com/120613788/210048805-2e2043c1-e448-4be2-b2ad-d7bd1e38085b.png)
+
 **Sử dụng network trong cụm docker swarm**
 
 Docker swarm thường sử dụng file docker-compose.yml để deploy, và trong file này cần lựa chọn mạng overlay để docker có thể connect multiple networks host với nhau.
@@ -217,7 +235,7 @@ Cú pháp: `docker network rm <tên network>`
 Kiểm tra lại các network đang có:
 ![image](https://user-images.githubusercontent.com/120613788/210049904-6f29a8ec-6624-4c2d-a0e0-be6f23152d49.png)
 
-- [ ] **Docker volume, mount** 
+- [x] **Docker volume, mount** 
 
 Volume trong Docker là một cơ chế được Docker sử dụng để cung cấp khả năng lưu trữ liên tục (persistent data storage). Chúng mang lại những lợi ích đáng kể trong quá trình phát triển và triển khai ứng dụng của bạn với Docker.
 ![image](https://user-images.githubusercontent.com/120613788/210050821-6bb97e6c-5fb2-4afb-aa06-b74654ddd54c.png)
@@ -258,7 +276,7 @@ Lệnh này sẽ hiển thị danh sách tên tất cả các docker volume cùn
 Ví dụ:
 ![image](https://user-images.githubusercontent.com/120613788/210052981-ccc81ce7-dce1-4ff8-abf0-ea9d12a10e26.png)
 
-**Kiểm tra volunes**
+**Kiểm tra volumes**
 
 Lệnh kiểm tra docker volume sẽ cung cấp thông tin chi tiết về một volume cụ thể. Nó hiển thị các thông tin về volume driver, mount point, scope hay labels (nhãn) của volume.
 
@@ -289,6 +307,25 @@ Lệnh sau đây sẽ tạo một docker container và mount volume vào contain
 - Cách 1: Sử dụng tùy chọn `--volume`
 
 Cú pháp: `docker run --name [container_name] --volume "[volume_name]":/tmp [docker_image]`
+
+Ví dụ: 
+![image](https://user-images.githubusercontent.com/120613788/210288697-4ff84021-5f6b-4d6e-b750-f399ff7ccb48.png)
+
+Có thể sử dụng `-v` thay cho `--volume`. Lệnh này sẽ tạo một container có tên test-container bằng cách sử dụng image ubuntu và gắn volume exampleVolume của mình vào vị trí `tmp` của container này.
+- Kiểm tra thông tin: `docker inspect test-container`
+![image](https://user-images.githubusercontent.com/120613788/210288834-138ff460-fb49-4df3-9c36-aecc96cb5ab9.png)
+
+- Cách 2: Sử dụng tùy chọn `--mount`
+
+Cú pháp: `docker run --mount source=[volume_name],destination=[path_in_container] [docker_image]`
+
+Ví dụ:
+![image](https://user-images.githubusercontent.com/120613788/210289290-312d4f26-3953-47df-9614-d1ef0911f50e.png)
+
+    Sử dụng tuỳ chọn `--mount` sẽ đem lại kết quả tương tự như trên. Nhưng cú pháp khi sử dụng    `--mount` rõ ràng và dài dòng hơn so với sử dụng `--volum`e. Trong khi `--volume` kết hợp       tất cả chỉ trong một chuỗi thì `--mount` phân tách chúng. 
+
+    Lưu ý: Chỉ có `--mount` là khả dụng với swarm mode, còn `--volume` thì không. Vì vậy, `--     mount` là cách duy nhất khả dụng khi sử dụng docker service
+
 ### Docker-compose
 - [ ] Định nghĩa
 - [ ] Thực hành chạy file-config
