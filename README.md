@@ -44,7 +44,7 @@
           Ví dụ: một chuỗi thời gian có tên chỉ số api_http_requests_total và phương thức nhãn ='POST' và trình xử lý ='\/messages' có thể được viết như sau:
           
           `api_http_requests_total{method="POST", handler="/messages"}`
-    * [ ] **Metric types: Các kiểu số liệu**
+    * [x] **Metric types: Các kiểu số liệu**
     Các thư viện Prometheus client cung cấp bốn loại số liệu cốt lõi. Chúng hiện chỉ được phân biệt trong các thư viện client (để cho phép các API phù hợp với việc sử dụng các loại cụ thể) và trong wire protocol. 4 loại số liệu:
       - Counter
       - Gauge
@@ -69,7 +69,56 @@
           - .Net
 
         **Histogram: Biểu đồ**
-    * [ ] **Jobs and instances**
+        
+        Biểu đồ tần suất lấy mẫu các quan sát (thường là những thứ như thời lượng yêu cầu hoặc kích thước phản hồi) và đếm chúng trong các vùng lưu trữ có thể định cấu hình. Nó cũng cung cấp một tổng của tất cả các giá trị quan sát được.  
+        
+        Biểu đồ tần suất với tên số liệu cơ sở là `<basename>` hiển thị nhiều chuỗi thời gian trong một lần scrape: 
+        - bộ đếm tích lũy cho các thùng quan sát, được hiển thị dưới dạng `<basename>_bucket{le='<giới hạn bao gồm trên>'}` 
+        - tổng của tất cả các giá trị quan sát được, được hiển thị dưới dạng `<basename>_sum` 
+        - đếm các sự kiện đã được quan sát, được hiển thị dưới dạng `<basename>_count` (giống hệt với `<basename> _bucket{le='+Inf'}` ở trên) 
+        
+        Sử dụng hàm `histogram_quantile()` để tính toán các lượng tử từ biểu đồ hoặc thậm chí tổng hợp các biểu đồ. Biểu đồ tần suất cũng phù hợp để tính Apdex score. Tài liệu sử dụng thư viện client cho biểu đồ:
+          - Go
+          - Java
+          - Python
+          - Ruby
+          - .Net
+          
+          **Summary: Tóm tắt**
+        
+          Tương tự như biểu đồ, một bản tóm tắt lấy mẫu quan sát (thường là những thứ như thời lượng yêu cầu và kích thước phản hồi). Mặc dù nó cũng cung cấp tổng số quan sát và tổng của tất cả các giá trị quan sát được, nhưng nó tính toán các lượng tử có thể định cấu hình trong một khoảng thời gian của window.  
+        
+          Một bản tóm tắt với tên số liệu cơ bản của `<basename>` hiển thị nhiều chuỗi thời gian trong một lần scrape: 
+          - phát trực tuyến φ-lượng tử (0 ≤ φ ≤ 1) các sự kiện quan sát được, được hiển thị dưới dạng `<basename>{quantile=''}` 
+          - tổng của tất cả các giá trị quan sát được, được hiển thị dưới dạng `<basename>_sum` 
+          - đếm các sự kiện đã được quan sát, được hiển thị dưới dạng `<basename>_count` 
+    
+
+    * [x] **Jobs and instances: Tác vụ và phiên bản**
+    
+    Theo thuật ngữ Prometheus, một điểm cuối bạn có thể scrape được gọi là một thể hiện, thường tương ứng với một quy trình duy nhất. Một tập hợp các trường hợp có cùng mục đích, một quy trình được sao chép cho khả năng mở rộng hoặc độ tin cậy chẳng hạn, được gọi là một công việc. Ví dụ: một công việc máy chủ API với bốn phiên bản sao chép:
+    - job: api-server
+      - instance 1: 1.2.3.4:5670
+      - instance 2: 1.2.3.4:5671
+      - instance 3: 5.6.7.8:5670
+      - instance 4: 5.6.7.8:5671
+      
+    Nhãn được tạo tự động và chuỗi thời gian
+    
+    Khi Prometheus scrape một mục tiêu, nó sẽ tự động gắn một số nhãn vào chuỗi thời gian bị loại bỏ để xác định mục tiêu bị loại bỏ: 
+    - `job`: tên công việc được cấu hình mà mục tiêu thuộc về. 
+    - `instance`: the `<host>:<port>` một phần của URL của mục tiêu đã được scrape. 
+    
+    Nếu một trong hai nhãn này đã có trong dữ liệu bị xóa, hành vi này phụ thuộc vào tùy chọn cấu hình `honor_labels`. 
+    
+    Đối với mỗi trường hợp Scrape, Prometheus lưu trữ một mẫu trong chuỗi thời gian sau:
+    - `up{job="<job-name>", instance="<instance-id>"}`: `1` nếu phiên bản khỏe mạnh, tức là có thể truy cập, hoặc `0` nếu truy cập không thành công
+    - `scrape_duration_seconds{job="<job-name>", instance="<instance-id>"}`: thời lượng scrape
+    - `scrape_samples_post_metric_relabeling{job="<job-name>", instance="<instance-id>"}`: số lượng mẫu còn lại sau khi áp dụng ghi nhãn lại số liệu
+    - `scrape_samples_scraped{job="<job-name>", instance="<instance-id>"}`: số lượng mẫu mà mục tiêu tiếp xúc
+    - `scrape_series_added{job="<job-name>", instance="<instance-id>"}`: số lượng gần đúng của series trong lần scrape này
+
+    Chuỗi thời gian hoạt động rất hữu ích cho việc giám sát tính khả dụng của phiên bản.
   * [ ] Kiến trúc của Prometheus stack và các thành phần cơ bản.
   * [ ] Trường hợp nào sử dụng Prometheus? Trường hợp nào không nên sử dụng
 * [ ] Cấu hình Prometheus
