@@ -59,6 +59,7 @@
           - Python
           - Ruby
           - .Net
+          
         **Gauge: Đồng hồ đo**
         
         Một thước đo là một số liệu đại diện cho một giá trị số duy nhất có thể tùy ý đi lên và xuống. Đồng hồ đo thường được sử dụng cho các giá trị đo như nhiệt độ hoặc sử dụng bộ nhớ hiện tại, nhưng cũng "tính" có thể tăng lên và xuống, giống như số lượng yêu cầu đồng thời. Tài liệu sử dụng thư viện client cho đồng hồ đo:
